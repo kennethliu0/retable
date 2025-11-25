@@ -150,12 +150,38 @@ function applyFilters(table) {
   const inputs = Array.from(table.querySelectorAll(".tt-filter-input"));
 
   // Build a list of active column filters - one filter per column
+  // Each filter includes a compiled regex (or null if invalid)
   const activeFilters = inputs
-    .map((input) => ({
-      text: input.value.toLowerCase().trim(),
-      colIndex: parseInt(input.dataset.colIndex),
-    }))
-    .filter((f) => f.text.length > 0);
+    .map((input) => {
+      const text = input.value.trim();
+      let regex = null;
+      let isValid = true;
+
+      if (text.length > 0) {
+        try {
+          // Create case-insensitive regex from user input
+          regex = new RegExp(text, "i");
+        } catch (e) {
+          // Invalid regex pattern
+          isValid = false;
+        }
+      }
+
+      // Update input styling based on regex validity
+      if (text.length > 0 && !isValid) {
+        input.classList.add("tt-filter-invalid");
+      } else {
+        input.classList.remove("tt-filter-invalid");
+      }
+
+      return {
+        regex,
+        colIndex: parseInt(input.dataset.colIndex),
+        isValid,
+        hasValue: text.length > 0,
+      };
+    })
+    .filter((f) => f.hasValue && f.isValid && f.regex);
 
   const rows = getBodyRows(table);
 
@@ -167,8 +193,8 @@ function applyFilters(table) {
       const cell = row.cells[filter.colIndex];
 
       if (cell) {
-        const cellText = cell.textContent.toLowerCase().trim();
-        if (!cellText.includes(filter.text)) {
+        const cellText = cell.textContent.trim();
+        if (!filter.regex.test(cellText)) {
           shouldShow = false;
           break;
         }

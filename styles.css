@@ -48,3 +48,14 @@
   background-color: #fef3c7;
   border-color: #f59e0b;
 }
+
+/* Invalid regex pattern */
+.tt-filter-input.tt-filter-invalid {
+  background-color: #fee2e2;
+  border-color: #ef4444;
+}
+
+.tt-filter-input.tt-filter-invalid:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15);
+}
