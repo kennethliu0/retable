@@ -1,0 +1,50 @@
+/* Selection Mode Cursor */
+.tt-selection-mode {
+  cursor: crosshair !important;
+}
+
+/* Highlight Effect */
+.tt-highlight {
+  outline: 3px solid #2563eb !important;
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.3) !important;
+  cursor: pointer !important;
+  transition: outline 0.1s;
+}
+
+/* Filter Row - ensures filters display side by side */
+.tt-filter-row {
+  display: table-row !important;
+}
+
+.tt-filter-row td {
+  display: table-cell !important;
+  background-color: #f0f4f8;
+  padding: 4px;
+  vertical-align: middle;
+  border-bottom: 2px solid #2563eb;
+}
+
+/* Filter Inputs */
+.tt-filter-input {
+  width: 100%;
+  min-width: 50px;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, background-color 0.2s;
+  background-color: white;
+}
+
+.tt-filter-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.tt-filter-input:not(:placeholder-shown) {
+  background-color: #fef3c7;
+  border-color: #f59e0b;
+}
